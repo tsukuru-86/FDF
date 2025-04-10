@@ -3,7 +3,7 @@ NAME = fdf
 
 # ディレクトリ設定
 SRC_DIR = srcs
-MLX_DIR = minilibx
+MLX_DIR = minilibx-linux
 INC_DIR = includes
 LIBFT_DIR = libft
 LIBFT_INC = $(LIBFT_DIR)/includes
@@ -14,7 +14,7 @@ CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_INC)
 
 # MinilibXライブラリとリンクオプション
 MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 # libft のライブラリファイル
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -32,7 +32,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) -f Makefile.gen
 
 # プログラムのリンク
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
@@ -45,13 +45,13 @@ $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
 # オブジェクトファイルの削除
 clean:
 	rm -f $(OBJS)
-	$(MAKE) clean -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) clean
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 # プログラム実体とオブジェクトファイルを全て削除
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) clean -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) clean
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 # リビルド（再構築）
