@@ -44,6 +44,8 @@ int	main(int argc, char *argv[])
 	}
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WIDTH, HEIGHT, "FDF");
+	env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
+	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
 	init_env(&env);
 	mlx_hook(env.win, 2, 1L << 0, key_hook, &env);
 	mlx_hook(env.win, 17, 0, close_window, &env);

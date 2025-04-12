@@ -61,6 +61,23 @@ void	draw_down_connection(t_env *env, int x, int y, int z)
 		draw_gradient_line(env, p0, p1);
 	}
 }
+void	clear_image(t_env *env)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(env, x, y, 0);
+			x++;
+		}
+		y++;
+	}
+}
 
 void	draw_map(t_env *env)
 {
@@ -68,7 +85,7 @@ void	draw_map(t_env *env)
 	int	y;
 	int	z;
 
-	mlx_clear_window(env->mlx, env->win);
+	clear_image(env);
 	y = 0;
 	while (y < env->map->rows)
 	{
@@ -82,4 +99,5 @@ void	draw_map(t_env *env)
 		}
 		y++;
 	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

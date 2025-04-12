@@ -19,38 +19,38 @@ int	close_window(t_env *env)
 	mlx_ptr = env->mlx;
 	mlx_destroy_window(env->mlx, env->win);
 	free_map(env->map);
-	mlx_destroy_display(mlx_ptr);
+	/* mlx_destroy_display(mlx_ptr); */ /* Linux用の関数 - Mac版では使用しない */
 	free(mlx_ptr);
 	exit(0);
 }
 
 static void	handle_transform_keys(int keycode, t_env *env)
 {
-	if (keycode == 97)
+	if (keycode == 0 || keycode == 97)
 		env->angle -= 5;
-	else if (keycode == 100)
+	else if (keycode == 2 || keycode == 100)
 		env->angle += 5;
-	else if (keycode == 119)
+	else if (keycode == 13 || keycode == 119)
 		env->angle_x += 5;
-	else if (keycode == 115)
+	else if (keycode == 1 || keycode == 115)
 		env->angle_x -= 5;
-	else if (keycode == 65362)
+	else if (keycode == 126 || keycode == 65362)
 		env->offset_y -= 10;
-	else if (keycode == 65364)
+	else if (keycode == 125 || keycode == 65364)
 		env->offset_y += 10;
-	else if (keycode == 65361)
+	else if (keycode == 123 || keycode == 65361)
 		env->offset_x -= 10;
-	else if (keycode == 65363)
+	else if (keycode == 124 || keycode == 65363)
 		env->offset_x += 10;
-	else if (keycode == 65451)
+	else if (keycode == 24 || keycode == 69 || keycode == 65451)
 		env->scale *= 1.1;
-	else if (keycode == 65453)
+	else if (keycode == 27 || keycode == 78 || keycode == 65453)
 		env->scale *= 0.9;
 }
 
 int	key_hook(int keycode, t_env *env)
 {
-	if (keycode == 65307)
+	if (keycode == 53 || keycode == 65307)
 	{
 		close_window(env);
 	}

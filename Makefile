@@ -3,7 +3,8 @@ NAME = fdf
 
 # ディレクトリ設定
 SRC_DIR = srcs
-MLX_DIR = minilibx-linux
+# MLX_DIR = minilibx-linux  # Linux用
+MLX_DIR = minilibx_mac      # Mac用
 INC_DIR = includes
 LIBFT_DIR = libft
 LIBFT_INC = $(LIBFT_DIR)/includes
@@ -14,7 +15,8 @@ CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_INC)
 
 # MinilibXライブラリとリンクオプション
 MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+# MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz  # Linux用
+MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit  # Mac用
 
 # libft のライブラリファイル
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -32,11 +34,11 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR) -f Makefile.gen
+	$(MAKE) -C $(MLX_DIR)
 
 # プログラムのリンク
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $^ $(MLX_LIBS) $(LIBFT_LIBS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -framework OpenGL -framework AppKit
 
 # 各ソースファイルのコンパイル
 %.o: %.c
@@ -51,8 +53,7 @@ clean:
 # プログラム実体とオブジェクトファイルを全て削除
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C $(MLX_DIR) clean
-	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 # リビルド（再構築）
 re: fclean all

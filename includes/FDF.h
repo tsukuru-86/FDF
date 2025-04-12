@@ -14,7 +14,8 @@
 # define FDF_H
 
 # include "../libft/libft.h"
-# include "../minilibx-linux/mlx.h"
+# include "../minilibx_mac/mlx.h"      /* Mac用 */
+/* # include "../minilibx-linux/mlx.h" */   /* Linux用 */
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
@@ -55,6 +56,11 @@ typedef struct s_env
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 	t_map	*map;
 	double	angle;
 	double	angle_x;
@@ -117,6 +123,7 @@ void		setup_line(t_point p0, t_point p1, int params[5],
 				t_line_data *line);
 void		draw_pixel(t_env *env, t_point p, t_line_data *line);
 void		draw_gradient_line(t_env *env, t_point p0, t_point p1);
+void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 
 /* key_hook.c */
 int			key_hook(int keycode, t_env *env);

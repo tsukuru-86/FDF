@@ -13,6 +13,17 @@
 #include "../includes/FDF.h"
 #include <stdlib.h>
 
+void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		dst = env->addr + (y * env->line_length + x * (env->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}
+
 void	init_line_params(int *params, t_point p0, t_point p1)
 {
 	params[0] = abs(p1.x - p0.x);
@@ -67,7 +78,7 @@ void	draw_pixel(t_env *env, t_point p, t_line_data *line)
 	else
 		t = (double)line->current_step / line->steps;
 	color = interpolate_color(line->color_start, line->color_end, t);
-	mlx_pixel_put(env->mlx, env->win, p.x, p.y, color);
+	my_mlx_pixel_put(env, p.x, p.y, color);
 	line->current_step++;
 }
 
