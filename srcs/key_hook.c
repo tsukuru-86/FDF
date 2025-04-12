@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 08:53:40 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/10 15:27:33 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/12 22:05:20 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int	close_window(t_env *env)
 {
+	void	*mlx_ptr;
+
+	mlx_ptr = env->mlx;
 	mlx_destroy_window(env->mlx, env->win);
 	free_map(env->map);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
 	exit(0);
 }
 
@@ -47,9 +52,7 @@ int	key_hook(int keycode, t_env *env)
 {
 	if (keycode == 65307)
 	{
-		mlx_destroy_window(env->mlx, env->win);
-		free_map(env->map);
-		exit(0);
+		close_window(env);
 	}
 	handle_transform_keys(keycode, env);
 	draw_map(env);

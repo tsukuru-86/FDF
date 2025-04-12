@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:15:39 by tkomai            #+#    #+#             */
-/*   Updated: 2025/04/10 18:15:40 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/12 22:50:41 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define SCALE 30
-# define ALT 0.5
+# define ALT 1
 
 typedef struct s_map
 {
