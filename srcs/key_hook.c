@@ -6,11 +6,12 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 08:53:40 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/12 22:05:20 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:06:34 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
+#include "../includes/get_next_line.h"
 
 int	close_window(t_env *env)
 {
@@ -19,7 +20,9 @@ int	close_window(t_env *env)
 	mlx_ptr = env->mlx;
 	mlx_destroy_window(env->mlx, env->win);
 	free_map(env->map);
-	/* mlx_destroy_display(mlx_ptr); */ /* Linux用の関数 - Mac版では使用しない */
+	mlx_destroy_image(mlx_ptr, env->img);
+	mlx_destroy_display(mlx_ptr);
+	free_gnl_leftover();
 	free(mlx_ptr);
 	exit(0);
 }

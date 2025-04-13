@@ -6,12 +6,24 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:55:04 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/10 15:46:49 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:05:40 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 #include <fcntl.h>
+
+/* 静的変数leftoverを解放する関数 */
+void	free_gnl_leftover(void)
+{
+	static char	*leftover = NULL;
+
+	if (leftover)
+	{
+		free(leftover);
+		leftover = NULL;
+	}
+}
 
 char	*ft_connect(int fd, char *buff, char *temp, char *leftover)
 {

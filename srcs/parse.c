@@ -6,40 +6,49 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 08:47:26 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/10 14:33:35 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:08:48 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
 
-static int	count_cols(char *buffer)
+static int	count_cols(char *line)
 {
 	int	i;
 	int	spaces;
 
 	i = 0;
 	spaces = 0;
-	while (buffer[i] && buffer[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
-		if (buffer[i] == ' ' && buffer[i + 1] != ' ' && buffer[i + 1] != '\n')
+		if (line[i] == ' ' && line[i + 1] != ' ' && line[i + 1] != '\n')
 			spaces++;
 		i++;
 	}
 	return (spaces + 1);
 }
 
-static int	count_rows(int fd)
+static int	count_rows_and_get_first_line(int fd, char **first_line)
 {
 	char	*line;
 	int		row_count;
+	int		first_line_found;
 
 	row_count = 0;
+	first_line_found = 0;
 	lseek(fd, 0, SEEK_SET);
 	line = get_next_line(fd);
 	while (line)
 	{
 		if (has_digit(line))
+		{
 			row_count++;
+			if (!first_line_found && *first_line == NULL)
+			{
+				*first_line = ft_strdup(line);
+				first_line_found = 1;
+			}
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -51,22 +60,22 @@ int	count_rows_and_cols(char *filename, int *cols)
 {
 	int		fd;
 	int		rows;
-	char	buffer[4096];
-	int		bytes_read;
+	char	*first_line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	bytes_read = read(fd, buffer, sizeof(buffer) - 1);
-	if (bytes_read <= 0)
+	first_line = NULL;
+	rows = count_rows_and_get_first_line(fd, &first_line);
+	if (rows <= 0 || !first_line)
 	{
+		if (first_line)
+			free(first_line);
 		close(fd);
 		return (-1);
 	}
-	buffer[bytes_read] = '\0';
-	*cols = count_cols(buffer);
-	lseek(fd, 0, SEEK_SET);
-	rows = count_rows(fd);
+	*cols = count_cols(first_line);
+	free(first_line);
 	close(fd);
 	return (rows);
 }

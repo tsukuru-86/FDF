@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:15:35 by tkomai            #+#    #+#             */
-/*   Updated: 2025/04/10 18:15:37 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:32:07 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10000
 # endif
 
 size_t	ft_strlen(const char *s);
@@ -29,5 +29,6 @@ char	*ft_get_line(char *leftover);
 int		ft_find_newline_pos(char *leftover);
 char	*ft_new_leftover(char *leftover);
 char	*ft_connect(int fd, char *buff, char *temp, char *leftover);
+void	free_gnl_leftover(void);
 
 #endif

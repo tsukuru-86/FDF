@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:15:39 by tkomai            #+#    #+#             */
-/*   Updated: 2025/04/12 22:50:41 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:24:42 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 
 # include "../libft/libft.h"
-# include "../minilibx_mac/mlx.h"      /* Mac用 */
-/* # include "../minilibx-linux/mlx.h" */   /* Linux用 */
+/* # include "../minilibx_mac/mlx.h" */      /* Mac用 */
+# include "../minilibx-linux/mlx.h"   /* Linux用 */
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>

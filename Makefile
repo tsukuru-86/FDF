@@ -3,8 +3,8 @@ NAME = fdf
 
 # ディレクトリ設定
 SRC_DIR = srcs
-# MLX_DIR = minilibx-linux  # Linux用
-MLX_DIR = minilibx_mac      # Mac用
+MLX_DIR = minilibx-linux  # Linux用
+# MLX_DIR = minilibx_mac      # Mac用
 INC_DIR = includes
 LIBFT_DIR = libft
 LIBFT_INC = $(LIBFT_DIR)/includes
@@ -15,8 +15,8 @@ CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR) -I$(INC_DIR) -I$(LIBFT_INC)
 
 # MinilibXライブラリとリンクオプション
 MLX_LIB = $(MLX_DIR)/libmlx.a
-# MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz  # Linux用
-MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit  # Mac用
+MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz  # Linux用
+# MLX_LIBS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit  # Mac用
 
 # libft のライブラリファイル
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -38,7 +38,7 @@ $(MLX_LIB):
 
 # プログラムのリンク
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(MLX_LIBS) $(LIBFT_LIBS)
 
 # 各ソースファイルのコンパイル
 %.o: %.c

@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 08:42:23 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/10 07:50:03 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/13 08:13:45 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	get_color_from_z(int z)
 	double	t;
 	int		red;
 	int		green;
+	int		blue;
 
 	t = (double)z / 10.0;
 	if (t > 1)
@@ -25,7 +26,8 @@ int	get_color_from_z(int z)
 		t = 0;
 	red = (int)(255 * t);
 	green = (int)(255 * (1 - t));
-	return ((red << 16) | (green << 8));
+	blue = 0;  /* 青の色成分を0に初期化 */
+	return ((red << 16) | (green << 8) | blue);
 }
 
 void	extract_colors(int color, int *r, int *g, int *b)
