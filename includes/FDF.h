@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:15:39 by tkomai            #+#    #+#             */
-/*   Updated: 2025/04/13 08:24:42 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:34:17 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 
 # include "../libft/libft.h"
-/* # include "../minilibx_mac/mlx.h" */      /* Mac用 */
-# include "../minilibx-linux/mlx.h"   /* Linux用 */
+/* # include "../minilibx_mac/mlx.h" */ /* Mac用 */
+# include "../minilibx-linux/mlx.h"      /* Linux用 */
 # include "get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
@@ -90,7 +90,20 @@ void		free_map(t_map *map);
 /* draw.c */
 void		draw_map(t_env *env);
 
-/* draw_connections.c */
+/* draw_utils.c */
+int			is_far_outside(int x, int y);
+void		init_points(t_point *p0, t_point *p1);
+void		set_right_points(t_env *env, t_point *p0, t_point *p1, int *coords);
+void		set_down_points(t_env *env, t_point *p0, t_point *p1, int *coords);
+void		clear_image(t_env *env);
+
+/* draw_region.c */
+int			check_corner_visibility(t_env *env, int *coords, int margin);
+int			is_region_visible(t_env *env, int start_x, int start_y, int size);
+void		process_region_point(t_env *env, int i, int j);
+void		process_region(t_env *env, int x, int y, int region_size);
+
+/* draw_connection.c */
 void		draw_right_connection(t_env *env, int x, int y, int z);
 void		draw_down_connection(t_env *env, int x, int y, int z);
 
@@ -117,13 +130,16 @@ int			combine_rgb(int r, int g, int b);
 int			interpolate_color(int color_start, int color_end, double t);
 
 /* line.c */
+int			is_line_visible(t_point p0, t_point p1);
 void		init_line_params(int *params, t_point p0, t_point p1);
 void		update_position(int params[5], t_point *p);
 void		setup_line(t_point p0, t_point p1, int params[5],
 				t_line_data *line);
 void		draw_pixel(t_env *env, t_point p, t_line_data *line);
 void		draw_gradient_line(t_env *env, t_point p0, t_point p1);
-void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
+void		my_mlx_pixel_put(t_env *env, int x, int y, int color);
+void		init_draw_line(t_point *p, t_point p0, int *params);
+void		process_pixel(t_env *env, t_point p, t_line_data *line);
 
 /* key_hook.c */
 int			key_hook(int keycode, t_env *env);

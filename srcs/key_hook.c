@@ -6,7 +6,7 @@
 /*   By: tkomai <tkomai@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 08:53:40 by tsukuru           #+#    #+#             */
-/*   Updated: 2025/04/13 08:06:34 by tkomai           ###   ########.fr       */
+/*   Updated: 2025/04/15 19:17:35 by tkomai           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	handle_transform_keys(int keycode, t_env *env)
 		env->offset_x -= 10;
 	else if (keycode == 124 || keycode == 65363)
 		env->offset_x += 10;
-	else if (keycode == 24 || keycode == 69 || keycode == 65451)
+	else if (keycode == 24 || keycode == 69)
 		env->scale *= 1.1;
-	else if (keycode == 27 || keycode == 78 || keycode == 65453)
+	else if (keycode == 27 || keycode == 78)
 		env->scale *= 0.9;
 }
 
